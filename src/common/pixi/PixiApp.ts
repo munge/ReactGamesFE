@@ -28,15 +28,17 @@ export async function createPixiApp(options: PixiAppOptions): Promise<Applicatio
 
   const app = new Application()
 
+  const { canvas, width, height, backgroundColor, ...rest } = options
+
   await app.init({
-    canvas: options.canvas,
-    width: options.width ?? options.canvas.clientWidth,
-    height: options.height ?? options.canvas.clientHeight,
-    backgroundColor: options.backgroundColor ?? 0x1a1a2e,
+    canvas,
+    width: width ?? canvas.clientWidth,
+    height: height ?? canvas.clientHeight,
+    backgroundColor: backgroundColor ?? 0x1a1a2e,
     resolution: window.devicePixelRatio || 1,
     autoDensity: true,
     antialias: true,
-    ...options,
+    ...rest,
   })
 
   return app

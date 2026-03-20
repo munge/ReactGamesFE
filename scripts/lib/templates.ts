@@ -20,6 +20,28 @@ export interface TemplateContext {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
+// meta.ts  (SEO config — one per game)
+// ─────────────────────────────────────────────────────────────────────────────
+
+export function genMeta(ctx: TemplateContext): string {
+  return (
+`import type { MetaConfig } from '@common/seo/types'
+
+export const meta: MetaConfig = {
+  title: '${ctx.title} — Game Platform',
+  description: 'Describe your game here.',
+  keywords: ['${ctx.gameName}', 'game', 'arcade'],
+  og: {
+    title: '${ctx.title}',
+    description: 'Describe your game here.',
+    image: '/assets/${ctx.gameName}/preview.png',
+  },
+}
+`
+  )
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
 // index.ts
 // ─────────────────────────────────────────────────────────────────────────────
 
@@ -216,7 +238,9 @@ export function genPageWithPixi(ctx: TemplateContext): string {
 `import React, { lazy, Suspense } from 'react'
 import { Link } from 'react-router'
 import LoadingScreen from '@common/components/ui/LoadingScreen/LoadingScreen'
+import { Meta } from '@common/seo/Meta'
 import { use${ctx.pascalName}Loader } from './loader'
+import { meta } from './meta'
 import styles from './${ctx.pascalName}Page.module.scss'
 
 // GameScene is lazy-loaded — mounts only after assets are ready
@@ -229,36 +253,39 @@ const GameScene = lazy(() => import('./components/GameScene'))
  *  1. use${ctx.pascalName}Loader() starts the PixiJS asset pipeline
  *  2. LoadingScreen shows live progress
  *  3. Once ready → GameScene mounts and renders the canvas
+ *
+ * <Meta> is always rendered (it returns null) so SEO tags update
+ * immediately on route load — even during the loading / error states.
  */
 const ${ctx.pascalName}Page: React.FC = () => {
   const { progress, ready, error } = use${ctx.pascalName}Loader()
 
-  if (error) {
-    return (
-      <div className={styles.error}>
-        <p>Failed to load assets: {error}</p>
-        <Link to="/">← Back to Lobby</Link>
-      </div>
-    )
-  }
-
-  if (!ready) {
-    return <LoadingScreen progress={progress} message="Loading ${ctx.title}…" />
-  }
-
   return (
-    <div className={styles.page}>
-      <nav className={styles.nav}>
-        <Link to="/" className={styles.backLink}>← Lobby</Link>
-        <span className={styles.navTitle}>${ctx.title}</span>
-      </nav>
+    <>
+      <Meta meta={meta} />
 
-      <main className={styles.main}>
-        <Suspense fallback={<LoadingScreen message="Mounting scene…" />}>
-          <GameScene />
-        </Suspense>
-      </main>
-    </div>
+      {error ? (
+        <div className={styles.error}>
+          <p>Failed to load assets: {error}</p>
+          <Link to="/">← Back to Lobby</Link>
+        </div>
+      ) : !ready ? (
+        <LoadingScreen progress={progress} message="Loading ${ctx.title}…" />
+      ) : (
+        <div className={styles.page}>
+          <nav className={styles.nav}>
+            <Link to="/" className={styles.backLink}>← Lobby</Link>
+            <span className={styles.navTitle}>${ctx.title}</span>
+          </nav>
+
+          <main className={styles.main}>
+            <Suspense fallback={<LoadingScreen message="Mounting scene…" />}>
+              <GameScene />
+            </Suspense>
+          </main>
+        </div>
+      )}
+    </>
   )
 }
 
@@ -275,20 +302,26 @@ export function genPageWithoutPixi(ctx: TemplateContext): string {
   return (
 `import React from 'react'
 import { Link } from 'react-router'
+import { Meta } from '@common/seo/Meta'
+import { meta } from './meta'
 import styles from './${ctx.pascalName}Page.module.scss'
 
 const ${ctx.pascalName}Page: React.FC = () => {
   return (
-    <div className={styles.page}>
-      <nav className={styles.nav}>
-        <Link to="/" className={styles.backLink}>← Lobby</Link>
-        <span className={styles.navTitle}>${ctx.title}</span>
-      </nav>
+    <>
+      <Meta meta={meta} />
 
-      <main className={styles.main}>
-        {/* Implement ${ctx.title} here */}
-      </main>
-    </div>
+      <div className={styles.page}>
+        <nav className={styles.nav}>
+          <Link to="/" className={styles.backLink}>← Lobby</Link>
+          <span className={styles.navTitle}>${ctx.title}</span>
+        </nav>
+
+        <main className={styles.main}>
+          {/* Implement ${ctx.title} here */}
+        </main>
+      </div>
+    </>
   )
 }
 

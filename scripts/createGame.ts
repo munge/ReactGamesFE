@@ -25,6 +25,7 @@ import {
   genIndex,
   genAssets,
   genLoader,
+  genMeta,
   genTypes,
   genGameScene,
   genPageWithPixi,
@@ -161,6 +162,10 @@ async function main(): Promise<void> {
   // index.ts — route entry (re-exports the page)
   writeFile(join(gameDir, 'index.ts'), genIndex(ctx), createdFiles)
   step(`index.ts`)
+
+  // meta.ts — SEO config (title, description, keywords, og tags)
+  writeFile(join(gameDir, 'meta.ts'), genMeta(ctx), createdFiles)
+  step(`meta.ts`)
 
   // Page component
   const pageContent = withPixi ? genPageWithPixi(ctx) : genPageWithoutPixi(ctx)

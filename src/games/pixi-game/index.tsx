@@ -2,7 +2,9 @@ import React, { useEffect, useState, lazy, Suspense } from 'react'
 import { Link } from 'react-router'
 import { pixiAssetsLoader } from '@common/pixi/PixiAssetsLoader'
 import LoadingScreen from '@common/components/ui/LoadingScreen/LoadingScreen'
+import { useMeta } from '@common/seo/useMeta'
 import { PIXI_GAME_BUNDLE } from './assets.manifest'
+import { meta } from './meta'
 import styles from './PixiGame.module.scss'
 
 // GameScene is lazy-loaded — mounts only after assets are ready
@@ -11,6 +13,7 @@ const PixiGameScene = lazy(() => import('./PixiGameScene'))
 type LoadState = 'loading' | 'ready' | 'error'
 
 const PixiGame: React.FC = () => {
+  useMeta(meta)
   const [loadState, setLoadState] = useState<LoadState>('loading')
   const [progress,  setProgress]  = useState(0)
   const [errorMsg,  setErrorMsg]  = useState('')

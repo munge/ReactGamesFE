@@ -1,7 +1,6 @@
 import React, { useEffect, useCallback } from 'react'
 import { createPortal } from 'react-dom'
 import { cn } from '@common/utils/cn'
-import Button from '@common/components/ui/Button/Button'
 import styles from './Modal.module.scss'
 
 interface ModalProps {

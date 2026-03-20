@@ -1,9 +1,12 @@
 import React from 'react'
 import { Link } from 'react-router'
 import { GAME_REGISTRY } from '@games/registry'
+import { useMeta } from '@common/seo/useMeta'
+import { meta } from './meta'
 import styles from './Lobby.module.scss'
 
 const Lobby: React.FC = () => {
+  useMeta(meta)
   return (
     <div className={styles.page}>
       <header className={styles.header}>

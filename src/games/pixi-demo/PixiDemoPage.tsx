@@ -1,7 +1,9 @@
 import React, { lazy, Suspense } from 'react'
 import { Link } from 'react-router'
 import LoadingScreen from '@common/components/ui/LoadingScreen/LoadingScreen'
+import { useMeta } from '@common/seo/useMeta'
 import { usePixiDemoLoader } from './loader'
+import { meta } from './meta'
 import styles from './PixiDemoPage.module.scss'
 
 // GameScene is lazy-loaded — mounts only after assets are ready
@@ -16,6 +18,7 @@ const GameScene = lazy(() => import('./components/GameScene'))
  *  3. Once ready → GameScene mounts and renders the canvas
  */
 const PixiDemoPage: React.FC = () => {
+  useMeta(meta)
   const { progress, ready, error } = usePixiDemoLoader()
 
   if (error) {

@@ -1,0 +1,81 @@
+.page {
+  min-height: 100dvh;
+  @include mix.flex-column;
+  @include mix.gradient-bg;
+  color: vars.$color-text;
+}
+
+// ── Header ───────────────────────────────────────────────────
+.header {
+  padding: vars.$space-12 vars.$space-6 vars.$space-6;
+  text-align: center;
+}
+
+.title {
+  font-family: vars.$font-display;
+  font-size: clamp(#{vars.$font-size-2xl}, 5vw, #{vars.$font-size-4xl});
+  font-weight: vars.$font-weight-bold;
+  color: vars.$color-text;
+}
+
+// ── Game grid ─────────────────────────────────────────────────
+.main {
+  flex: 1;
+  padding: vars.$space-6 vars.$space-4 vars.$space-12;
+  width: 100%;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: vars.$space-5;
+
+  @include mix.md {
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  }
+}
+
+// ── Card ──────────────────────────────────────────────────────
+.card {
+  @include mix.card;
+  display: block;
+  padding: vars.$space-6;
+  border-top: 3px solid var(--card-color, vars.$color-accent);
+  transition: transform vars.$transition-normal, box-shadow vars.$transition-normal;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4);
+  }
+
+  &:focus-visible {
+    outline: 2px solid vars.$color-accent;
+    outline-offset: 2px;
+  }
+}
+
+.badge {
+  display: block;
+  font-size: vars.$font-size-xs;
+  font-weight: vars.$font-weight-bold;
+  color: var(--card-color, vars.$color-accent);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: vars.$space-3;
+}
+
+.cardTitle {
+  font-family: vars.$font-display;
+  font-size: vars.$font-size-xl;
+  font-weight: vars.$font-weight-bold;
+  color: vars.$color-text;
+  margin-bottom: vars.$space-2;
+}
+
+.cardDesc {
+  font-size: vars.$font-size-sm;
+  color: vars.$color-text-muted;
+  line-height: 1.6;
+}

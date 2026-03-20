@@ -1,0 +1,110 @@
+// ─────────────────────────────────────────────────────────────
+// SCSS Mixins — @use'd by every .module.scss via additionalData
+// This file imports _variables directly (no additionalData injection here).
+// ─────────────────────────────────────────────────────────────
+
+@use 'variables' as vars;
+
+// Responsive breakpoints
+@mixin sm { @media (min-width: vars.$bp-sm) { @content; } }
+@mixin md { @media (min-width: vars.$bp-md) { @content; } }
+@mixin lg { @media (min-width: vars.$bp-lg) { @content; } }
+@mixin xl { @media (min-width: vars.$bp-xl) { @content; } }
+
+// Flex helpers
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+@mixin flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+// Full-page fill
+@mixin fill {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+// Card base
+@mixin card {
+  background: vars.$color-bg-card;
+  border: 1px solid vars.$color-border;
+  border-radius: vars.$radius-lg;
+  box-shadow: vars.$shadow-card;
+}
+
+// Glow effect
+@mixin glow($color: vars.$color-accent, $radius: 20px) {
+  box-shadow: 0 0 $radius rgba($color, 0.4);
+}
+
+// Text truncation
+@mixin truncate {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+// Overlay backdrop
+@mixin overlay {
+  position: fixed;
+  inset: 0;
+  background: vars.$color-overlay;
+  backdrop-filter: blur(4px);
+}
+
+// Scrollbar styling
+@mixin custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: vars.$color-accent transparent;
+
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: vars.$color-accent;
+    border-radius: vars.$radius-full;
+  }
+}
+
+// Focus ring (accessibility)
+@mixin focus-ring {
+  &:focus-visible {
+    outline: 2px solid vars.$color-accent;
+    outline-offset: 2px;
+  }
+}
+
+// Animated gradient background
+@mixin gradient-bg {
+  background: linear-gradient(
+    135deg,
+    vars.$color-bg-deep 0%,
+    vars.$color-bg-dark 50%,
+    vars.$color-bg-mid 100%
+  );
+}
+
+// Progress bar track
+@mixin progress-track {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: vars.$radius-full;
+  overflow: hidden;
+}

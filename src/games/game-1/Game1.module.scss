@@ -1,0 +1,31 @@
+.page {
+  min-height: 100dvh;
+  @include mix.flex-column;
+  background: vars.$color-bg-deep;
+  color: vars.$color-text;
+}
+
+.nav {
+  @include mix.flex-between;
+  padding: vars.$space-4 vars.$space-6;
+  border-bottom: 1px solid vars.$color-border;
+}
+
+.backLink {
+  font-size: vars.$font-size-sm;
+  color: vars.$color-text-muted;
+  transition: color vars.$transition-fast;
+  &:hover { color: vars.$color-text; }
+}
+
+.navTitle {
+  font-family: vars.$font-display;
+  font-weight: vars.$font-weight-bold;
+  color: vars.$color-text;
+}
+
+.main {
+  flex: 1;
+  @include mix.flex-column;
+  padding: vars.$space-8 vars.$space-6;
+}

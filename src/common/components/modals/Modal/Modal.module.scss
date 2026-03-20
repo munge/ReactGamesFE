@@ -1,0 +1,76 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: vars.$z-modal;
+  @include mix.flex-center;
+  padding: vars.$space-4;
+}
+
+.backdrop {
+  @include mix.fill;
+  background: vars.$color-overlay;
+  backdrop-filter: blur(6px);
+  animation: fadeIn vars.$transition-normal forwards;
+}
+
+.panel {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  background: vars.$color-bg-dark;
+  border: 1px solid vars.$color-border;
+  border-radius: vars.$radius-xl;
+  box-shadow: vars.$shadow-modal;
+  animation: slideUp vars.$transition-normal forwards;
+  overflow: hidden;
+}
+
+// ── Header ───────────────────────────────────────────────────
+.header {
+  @include mix.flex-between;
+  padding: vars.$space-5 vars.$space-6;
+  border-bottom: 1px solid vars.$color-border;
+}
+
+.title {
+  font-family: vars.$font-display;
+  font-size: vars.$font-size-xl;
+  font-weight: vars.$font-weight-bold;
+  color: vars.$color-text;
+}
+
+.closeBtn {
+  @include mix.flex-center;
+  width: 32px;
+  height: 32px;
+  border-radius: vars.$radius-full;
+  color: vars.$color-text-muted;
+  font-size: vars.$font-size-base;
+  transition: color vars.$transition-fast, background vars.$transition-fast;
+  flex-shrink: 0;
+
+  &:hover {
+    color: vars.$color-text;
+    background: rgba(255, 255, 255, 0.06);
+  }
+
+  &:focus-visible {
+    outline: 2px solid vars.$color-accent;
+  }
+}
+
+// ── Body ─────────────────────────────────────────────────────
+.body {
+  padding: vars.$space-6;
+}
+
+// ── Animations ───────────────────────────────────────────────
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(20px) scale(0.97); }
+  to   { opacity: 1; transform: translateY(0)    scale(1);    }
+}

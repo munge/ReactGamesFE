@@ -4,6 +4,7 @@
  */
 export const ROUTES = {
   LOBBY:     '/',
+  FROG:      '/frog',
   GAME_1:    '/game-1',
   GAME_2:    '/game-2',
   PIXI_GAME: '/pixi-game',

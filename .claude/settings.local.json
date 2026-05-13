@@ -2,7 +2,15 @@
   "permissions": {
     "allow": [
       "Bash(npm install:*)",
-      "Bash(npm run:*)"
+      "Bash(npm run:*)",
+      "Bash(cp \"C:/Projects/MiniGamesFE/src/frog/assets/sounds/\"*.mp3 \"C:/Projects/GitReactGamesFE/public/assets/frog/sounds/\")",
+      "Bash(cp \"C:/Projects/MiniGamesFE/src/frog/assets/fonts/BroadwayFlat.woff2\" \"C:/Projects/GitReactGamesFE/public/assets/frog/fonts/\")",
+      "Bash(cp \"C:/Projects/MiniGamesFE/src/frog/assets/fonts/ALBAM___.TTF\" \"C:/Projects/GitReactGamesFE/public/assets/frog/fonts/\")",
+      "Bash(cp \"C:/Projects/MiniGamesFE/src/frog/assets/fonts/ERASDEMI.TTF\" \"C:/Projects/GitReactGamesFE/public/assets/frog/fonts/\")",
+      "Bash(cp \"C:/Projects/MiniGamesFE/src/frog/assets/images/spines/frog/\"* \"C:/Projects/GitReactGamesFE/public/assets/frog/images/spines/frog/\")",
+      "Bash(npx tsc:*)",
+      "Bash(cp \"C:/Projects/MiniGamesFE/src/_common/static/images/arrow-left.svg\" \"C:/Projects/GitReactGamesFE/public/assets/frog/\")",
+      "Bash(cp \"C:/Projects/MiniGamesFE/src/_common/static/images/arrow-right.svg\" \"C:/Projects/GitReactGamesFE/public/assets/frog/\")"
     ]
   }
 }

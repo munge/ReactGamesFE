@@ -1,0 +1,97 @@
+frog.png
+	size: 3409, 1729
+	filter: Linear, Linear
+	pma: true
+0x
+	bounds: 3092, 801, 227, 145
+	offsets: 4, 4, 238, 153
+Body
+	bounds: 2835, 186, 345, 337
+	rotate: 90
+Eye_L
+	bounds: 3174, 373, 113, 116
+Eye_R
+	bounds: 3218, 491, 109, 117
+	offsets: 1, 0, 110, 117
+	rotate: 90
+Frames/burp-copy_0000_1
+	bounds: 2, 1131, 513, 596
+Frames/burp-copy_0001_2
+	bounds: 2, 533, 513, 596
+Frames/burp-copy_0002_3
+	bounds: 517, 1131, 513, 596
+Frames/burp-copy_0003_4
+	bounds: 517, 533, 513, 596
+Frames/burp-copy_0004_5
+	bounds: 2, 18, 513, 596
+	rotate: 90
+Frames/burp-copy_0005_6
+	bounds: 1032, 1131, 513, 596
+Frames/burp-copy_0006_7
+	bounds: 1032, 533, 513, 596
+Frames/burp-copy_0007_8
+	bounds: 600, 18, 513, 596
+	rotate: 90
+Frames/burp-copy_0008_9
+	bounds: 1547, 1131, 513, 596
+Frames/burp-copy_0009_10
+	bounds: 1547, 533, 513, 596
+Frames/burp-copy_0010_11
+	bounds: 1198, 18, 513, 596
+	rotate: 90
+Frames/burp-copy_0011_12
+	bounds: 2062, 1131, 513, 596
+Frames/burp-copy_0012_13
+	bounds: 2062, 533, 513, 596
+Frames/burp-copy_0013_14
+	bounds: 1796, 18, 513, 596
+	rotate: 90
+Frames/burp-copy_0014_15
+	bounds: 2577, 1131, 513, 596
+Frames/burp-copy_0015_16
+	bounds: 2577, 533, 513, 596
+Group 7
+	bounds: 3092, 948, 779, 242
+	rotate: 90
+Leg_L1
+	bounds: 3006, 55, 129, 168
+	rotate: 90
+Leg_L2
+	bounds: 3092, 600, 124, 199
+Leg_R1
+	bounds: 2835, 59, 125, 169
+	rotate: 90
+Leg_R2
+	bounds: 3218, 602, 118, 197
+changed eyes/Eye_L empty
+	bounds: 3174, 255, 113, 116
+changed eyes/Eye_R empty
+	bounds: 3289, 372, 110, 117
+changed eyes/Shape 18 copy
+	bounds: 3289, 255, 108, 115
+changed eyes/Shape 19 copy
+	bounds: 3176, 140, 111, 113
+changed eyes/left eye/L_Front
+	bounds: 3289, 143, 106, 110
+changed eyes/left eye/L_გუგა
+	bounds: 3336, 1428, 58, 58
+changed eyes/right eye/R_გუგა
+	bounds: 3336, 1428, 58, 58
+changed eyes/right eye/R_Front
+	bounds: 3176, 31, 107, 109
+	rotate: 90
+last/Mouth
+	bounds: 3336, 1488, 239, 71
+	rotate: 90
+mouth X
+	bounds: 2394, 67, 251, 34
+ready/Body
+	bounds: 2394, 103, 439, 428
+	offsets: 21, 0, 471, 428
+ready/Eye_L
+	bounds: 3289, 46, 95, 98
+	offsets: 2, 1, 98, 100
+	rotate: 90
+ready/Eye_R
+	bounds: 2647, 2, 92, 99
+	offsets: 1, 1, 94, 101

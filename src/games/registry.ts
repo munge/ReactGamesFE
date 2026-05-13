@@ -30,7 +30,16 @@ export interface GameRegistryEntry {
 }
 
 export const GAME_REGISTRY: GameRegistryEntry[] = [
-    {
+  {
+    id: 'frog',
+    path: '/frog',
+    title: 'Frog',
+    description: 'Frog — bet and watch the frog jump with Spine 2D animations.',
+    badge: 'FROG',
+    color: '#22c55e',
+    component: lazy(() => import('./frog')),
+  },
+  {
     id: 'pixi-demo',
     path: '/pixi-demo',
     title: 'Pixi Demo',

@@ -1,0 +1,638 @@
+// ─── Frog Game styles ─────────────────────────────────────────────────────────
+// Ported from MiniGamesFE/src/frog/style.scss
+//             MiniGamesFE/src/frog/components/game-controlls.style.scss
+//
+// Note: @use "common/styles/variables" as vars and @use "common/styles/mixins" as mix
+// are auto-injected by Vite additionalData — do NOT add them here.
+//
+// CSS custom-property values from MiniGamesFE are inlined as their real hex values.
+// Lime color  : #a3e635 ($limeColor)
+// Border radius: 5px    ($borderRadius)
+
+// ─── Page shell ──────────────────────────────────────────────────────────────
+.page {
+  min-height: 100dvh;
+  @include mix.flex-column;
+  background: vars.$color-bg-deep;
+  color: vars.$color-text;
+}
+
+.nav {
+  @include mix.flex-between;
+  padding: vars.$space-4 vars.$space-6;
+  border-bottom: 1px solid vars.$color-border;
+  flex-shrink: 0;
+}
+
+.backLink {
+  font-size: vars.$font-size-sm;
+  color: vars.$color-text-muted;
+  transition: color vars.$transition-fast;
+  &:hover { color: vars.$color-text; }
+}
+
+.navTitle {
+  font-family: vars.$font-display;
+  font-weight: vars.$font-weight-bold;
+  color: vars.$color-text;
+}
+
+.error {
+  @include mix.flex-center;
+  @include mix.flex-column;
+  gap: vars.$space-4;
+  min-height: 100dvh;
+  background: vars.$color-bg-deep;
+  color: vars.$color-error;
+  text-align: center;
+  padding: vars.$space-8;
+
+  a {
+    color: vars.$color-text-muted;
+    font-size: vars.$font-size-sm;
+    &:hover { color: vars.$color-text; }
+  }
+}
+
+// ─── Main layout ─────────────────────────────────────────────────────────────
+.main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: vars.$space-4 vars.$space-6;
+  gap: vars.$space-4;
+
+  @media (min-width: vars.$bp-lg) {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+}
+
+// ─── Game container — from .main-content .game-container ─────────────────────
+.gameContainer {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  flex: 1;
+  min-height: 400px;
+  margin-bottom: 10px;
+  border-radius: 5px;                    // $borderRadius
+  background-color: unset;
+
+  background: rgb(12, 18, 30);
+  background: linear-gradient(180deg, rgba(12, 18, 30, 0) 10%, rgba(3, 49, 74, 1) 100%);
+
+  @media (max-width: 767.98px) {
+    height: 90vw;
+    padding: 10px 0;
+    min-height: unset;
+  }
+}
+
+// ─── Canvas area — from .canvas-game-view ────────────────────────────────────
+.canvasWrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10px;
+  width: 100%;
+  height: 100%;
+}
+
+// ─── Canvas element — from .game-canvas ──────────────────────────────────────
+.canvas {
+  position: absolute;
+  display: block;
+}
+
+// ─── Game background overlay — from .game-background ─────────────────────────
+.gameBackground {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+
+  &::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 15%;
+    background: rgb(12, 18, 30);
+    background: linear-gradient(180deg, rgba(12, 18, 30, 0) 24%, rgba(3, 49, 74, 1) 100%);
+  }
+}
+
+// ─── Loading spinner — from .game-view-loader ─────────────────────────────────
+.gameLoader {
+  position: absolute;
+  @include mix.flex-center;
+
+  svg {
+    width: 100px;
+    height: 100px;
+    margin: 20px;
+    display: inline-block;
+  }
+}
+
+// ─── Bet history row — from .game-history ────────────────────────────────────
+.gameHistory {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  overflow: hidden;
+  border-radius: 5px;                    // $borderRadius
+  width: 80%;
+  max-width: 560px;
+  height: 60px;
+  min-height: 60px;
+  margin-bottom: 15px;
+  padding: 15px;
+  margin-top: 20px;
+
+  &.visible {
+    background-color: #1a2233;
+  }
+}
+
+.historyItem {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #131926;
+  color: #97a1c2;
+  font-size: 14px;
+  border-radius: 5px;
+  width: 60px;
+  height: 30px;
+  margin: 0 5px 15px 0;
+
+  &.win {
+    background-color: #a3e635;           // $limeColor
+    color: #131926;
+  }
+}
+
+// ─── Winning popup — from .winning-popup-wrapper ─────────────────────────────
+.winningPopupWrapper {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  background-color: rgba(18, 24, 36, 0.73);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s;
+  opacity: 0;
+  user-select: none;
+  pointer-events: none;
+
+  .winningPopupContent {
+    position: relative;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    width: 100%;
+    height: 100%;
+    max-width: 400px;
+    max-height: 400px;
+    display: flex;
+    justify-content: center;
+
+    .winningAmountWrapper {
+      position: absolute;
+      display: flex;
+      align-items: center;
+      font-weight: 900;
+      font-size: 32px;
+      text-shadow: -2px 3px 0px #592da1;
+
+      .value    { color: #a3e635; }      // $limeColor
+      .currency { color: white; padding-left: 5px; }
+    }
+  }
+}
+
+// ─── Betslip panel — from .betslip ───────────────────────────────────────────
+.betslip {
+  display: flex;
+  flex-direction: column;
+  gap: vars.$space-3;
+  width: 100%;
+  flex-grow: 1;
+
+  @media (min-width: vars.$bp-lg) {
+    width: 300px;
+    flex-shrink: 0;
+  }
+}
+
+// ─── Bet setting wrapper — from .bet-setting ──────────────────────────────────
+.betSetting {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: vars.$space-3;
+  height: 135px;
+  margin-bottom: 10px;
+  padding: vars.$space-4;
+  background-color: #0f1929;
+  border-radius: 5px;                    // $borderRadius
+
+  @media (max-width: 992px) {
+    flex-direction: column-reverse;
+    height: 205px;
+    width: 100%;
+  }
+}
+
+.leftWrapper {
+  display: flex;
+  gap: vars.$space-2;
+}
+
+.wrapperButtons {
+  position: relative;
+  margin-left: 5px;
+  width: 100%;
+  max-width: 270px;
+
+  @media (max-width: 992px) {
+    height: 60px;
+    max-width: 100%;
+    margin-left: unset;
+    margin-bottom: 5px;
+  }
+}
+
+// ─── Bet button — from .btn ──────────────────────────────────────────────────
+.betButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 70px;
+  background-color: var(--betBtnBgColor, #4caf50);
+  color: var(--betBtnColor, #fff);
+  font-size: var(--betBtnFontSize, 16px);
+  border-radius: 5px;                    // $borderRadius
+  cursor: pointer;
+  border: none;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  transition: filter 150ms ease;
+
+  &:disabled {
+    opacity: 0.4;
+    pointer-events: none;
+  }
+
+  &:hover:not(:disabled) {
+    filter: brightness(1.1);
+  }
+
+  &.loading {
+    opacity: 0.9;
+    pointer-events: none;
+    cursor: not-allowed;
+    position: relative;
+    overflow: hidden;
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      height: 3px;
+      background: rgba(255, 255, 255, 0.6);
+      animation: loadingBar 1s ease-in-out infinite;
+    }
+  }
+}
+
+@keyframes loadingBar {
+  0%   { width: 0; left: 0; }
+  50%  { width: 100%; left: 0; }
+  100% { width: 0; left: 100%; }
+}
+
+// ─── Game controls — from game-controlls.style.scss ──────────────────────────
+
+.gameControlsWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 70px;
+  margin-top: 5px;
+
+  .borderedBox {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    margin-bottom: 0;
+    background-color: #182033;           // $betAmountBgColor
+    border: 1px solid rgba(100, 106, 128, 0.5); // $betAmountBorderThickness $betAmountBorderColor
+    border-radius: 5px;                  // $borderRadius
+    padding: 10px 5px;
+
+    .inputWrapper {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      height: 100%;
+      justify-content: space-between;
+
+      .inputAmount {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        .inputBtn {
+          position: relative;
+          width: 30px;
+          height: 30px;
+          border-radius: 15px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          background-color: #363e53;
+          cursor: pointer;
+          border: none;
+          flex-shrink: 0;
+
+          &.minus::before {
+            content: '';
+            position: absolute;
+            background-image: url('/assets/frog/arrow-left.svg');
+            background-repeat: no-repeat;
+            background-position: center;
+            width: 100%;
+            height: 100%;
+          }
+
+          &.plus::before {
+            content: '';
+            position: absolute;
+            background-image: url('/assets/frog/arrow-right.svg');
+            background-repeat: no-repeat;
+            background-position: center;
+            width: 100%;
+            height: 100%;
+          }
+
+          &:hover:not(:disabled) {
+            filter: brightness(1.1);
+          }
+
+          &.edge {
+            background-color: #242c3d;
+            opacity: 0.6;
+            cursor: not-allowed;
+          }
+
+          &:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+          }
+        }
+
+        ul {
+          width: 25px;
+          text-align: center;
+          list-style: none;
+          padding: 0;
+          margin: 0;
+
+          li {
+            display: none;
+            font-size: 11px;
+
+            &.active {
+              color: #a3e635;            // $limeColor
+              display: block;
+            }
+          }
+        }
+      }
+
+      .title {
+        display: flex;
+        color: #97a1c2;                  // $betAmountTitleColor
+        justify-content: center;
+        font-size: 10px;
+      }
+    }
+
+    // Risk selector variant
+    &.gameRiskWrapper {
+      position: relative;
+      min-width: 100px;
+
+      .inputAmount {
+        background-color: #363e53;
+        border-radius: 5px;              // $borderRadius
+
+        ul {
+          padding: unset;
+          width: 45px;
+        }
+
+        .inputBtn {
+          width: 24px;
+          border-radius: 5px;            // $borderRadius
+
+          &.minus {
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 0;
+          }
+
+          &.plus {
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
+          }
+        }
+      }
+    }
+  }
+
+  // Autoplay button — from .autoplay-step-box
+  .autoplayStepBox {
+    background-color: #182033;
+    border: 2px solid rgba(100, 106, 128, 0.5);
+    color: #6e39c6;
+    margin-left: 5px;
+    margin-top: 56px;
+    height: 136px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border-radius: 5px;                  // $borderRadius
+    font-size: 13px;
+    white-space: nowrap;
+    padding: 0 8px;
+    transition: filter 150ms ease;
+
+    &:hover:not(:disabled) {
+      filter: brightness(1.1);
+    }
+
+    &:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+
+    &.active {
+      border: 2px solid var(--betBtnBgColor, #e94560);
+      color: var(--betBtnBgColor, #e94560);
+    }
+  }
+}
+
+// ─── Bet amount input — from bet-changer.component ───────────────────────────
+.betChangerWrapper {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 70px;
+  background-color: #182033;
+  border: 1px solid rgba(100, 106, 128, 0.5);
+  border-radius: 5px;
+  overflow: hidden;
+
+  .inputBtn {
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #363e53;
+    cursor: pointer;
+    border: none;
+    border-radius: 50%;
+    flex-shrink: 0;
+    margin: 0 5px;
+
+    &.minus::before {
+      content: '';
+      position: absolute;
+      background-image: url('/assets/frog/arrow-left.svg');
+      background-repeat: no-repeat;
+      background-position: center;
+      width: 100%;
+      height: 100%;
+    }
+
+    &.plus::before {
+      content: '';
+      position: absolute;
+      background-image: url('/assets/frog/arrow-right.svg');
+      background-repeat: no-repeat;
+      background-position: center;
+      width: 100%;
+      height: 100%;
+    }
+
+    &:hover:not(:disabled) { filter: brightness(1.1); }
+    &:disabled             { opacity: 0.4; cursor: not-allowed; }
+  }
+
+  .betInput {
+    flex: 1;
+    background: transparent;
+    border: none;
+    outline: none;
+    text-align: center;
+    color: vars.$color-text;
+    font-size: vars.$font-size-base;
+    padding: vars.$space-2;
+    min-width: 0;
+
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+    -moz-appearance: textfield;
+  }
+}
+
+// ─── Limits row ──────────────────────────────────────────────────────────────
+.limits {
+  display: flex;
+  justify-content: space-between;
+  font-size: vars.$font-size-xs;
+  color: vars.$color-text-muted;
+  padding: vars.$space-1 0;
+}
+
+// ─── Media queries (from original) ───────────────────────────────────────────
+@media screen and (max-width: 1300px) {
+  .gameHistory {
+    background-color: transparent;
+    margin: 0;
+    margin-top: 20px;
+
+    .historyItem {
+      background-color: #1a2233;
+    }
+
+    &.visible {
+      background-color: transparent;
+    }
+  }
+}
+
+@media screen and (max-width: 992px) {
+  .gameContainer {
+    padding: 10px 0;
+    height: calc(100% - 200px - 25px);
+  }
+
+  .gameControlsWrapper {
+    .borderedBox {
+      .inputWrapper {
+        .inputAmount {
+          ul { width: 100%; }
+
+          .inputBtn {
+            width: 30px;
+            height: 30px;
+            min-width: 26px;
+            min-height: 26px;
+          }
+        }
+      }
+    }
+
+    .autoplayStepBox {
+      margin-left: 3px;
+    }
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .gameControlsWrapper {
+    .borderedBox {
+      padding: 10px 3px;
+    }
+  }
+}
+
+@media screen and (max-width: 575.98px) {
+  .winningPopupWrapper {
+    .winningPopupContent {
+      max-width: 300px;
+      max-height: 300px;
+
+      .winningAmountWrapper {
+        font-size: 28px;
+      }
+    }
+  }
+}
